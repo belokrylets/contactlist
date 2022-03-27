@@ -1,8 +1,26 @@
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import uniqueId from 'lodash/uniqueId'
+import { useDispatch, useSelector } from 'react-redux';
 
-export default ({ contacts, removeContact }) => {
+const List = () => {
+  const dispath  =  useDispatch();
+  const user = useSelector(state => state.user.user)
+
+  const {contacts} = user;
+  const removeContacts = (newList) => {
+  
+    dispath({type: 'REMOVE_CONTACTS', payload: newList})
+  }
+
+  const removeContact = (id) => (e) => {
+    e.preventDefault();
+    const newList = contacts.filter((contact) => contact.id !== id);
+    
+    removeContacts(newList);
+  };
+
+  
     if (contacts.length === 0) {
         return <div>Список контактов пуст</div>
     }
@@ -28,3 +46,4 @@ export default ({ contacts, removeContact }) => {
   </Table>
   );
 };
+export default List;

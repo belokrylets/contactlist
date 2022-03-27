@@ -1,15 +1,32 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-export default ({ handleCloseshowSignUp, handleShowshowSignUp, showSignUp }) => {
+import { useDispatch, useSelector } from 'react-redux';
+
+const SignUp = () => {
+
+  const dispath = useDispatch();
+  const showSignUp = useSelector(state => state.showSignUp.showSignUp);
+  const newUser = useSelector(state => state.newUser.newUser)
+  const registrationDataInput = (e) => {
+    dispath({type: 'REGISTRATION_DATA_INPUT', payload:{name: e.target.name, value: e.target.value}})
+  }
+ 
+  const hide = () => {
+    dispath({ type: 'HIDE_REGISTRATION'})
+  }
+  const show = () => {
+    dispath({ type: 'SHOW_REGISTRATION'})
+  }
+ 
 
   return (
     <>
-      <Button variant="secondary" onClick={handleShowshowSignUp}>
+      <Button variant="secondary" onClick={show}>
         Регистрация
       </Button>
 
-      <Modal show={showSignUp} onHide={handleCloseshowSignUp}>
+      <Modal show={showSignUp} onHide={hide}>
         <Modal.Header closeButton>
           <Modal.Title>
             Для регистрации заполните все поля
@@ -20,26 +37,26 @@ export default ({ handleCloseshowSignUp, handleShowshowSignUp, showSignUp }) => 
           <Form>
           <Form.Group className="mb-3">
     <Form.Label>Имя</Form.Label>
-    <Form.Control type="text" placeholder="Введите имя" />
+    <Form.Control name='name' value={newUser.name} type="text" placeholder="Введите имя" onChange={registrationDataInput}/>
   </Form.Group>
   <Form.Group className="mb-3">
     <Form.Label>Фамилия</Form.Label>
-    <Form.Control type="text" placeholder="Введите фамилию" />
+    <Form.Control name='surname' value={newUser.surname} type="text" placeholder="Введите фамилию" onChange={registrationDataInput}/>
   </Form.Group>
   <Form.Group className="mb-3">
     <Form.Label>Логин</Form.Label>
-    <Form.Control type="text" placeholder="Придумайте логин" />
+    <Form.Control name='login' value={newUser.login} type="text" placeholder="Придумайте логин" onChange={registrationDataInput}/>
   </Form.Group>
 
   <Form.Group className="mb-3" controlId="formBasicPassword">
     <Form.Label>Пароль</Form.Label>
-    <Form.Control type="password" placeholder="Придумайте пароль" />
+    <Form.Control name='password' value={newUser.password} type="password" placeholder="Придумайте пароль" onChange={registrationDataInput}/>
   </Form.Group>
 </Form>
           </>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleCloseshowSignUp}>
+          <Button variant="primary" onClick={hide}>
             Зарегистрироваться
           </Button>
         </Modal.Footer>
@@ -47,3 +64,4 @@ export default ({ handleCloseshowSignUp, handleShowshowSignUp, showSignUp }) => 
     </>
   );
 };
+export default SignUp;

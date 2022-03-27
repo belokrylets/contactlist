@@ -1,15 +1,58 @@
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from "react-bootstrap/Form";
+import { useDispatch, useSelector } from 'react-redux';
+import isLogin from '../isLogin';
 
-export default ({authorisationError, buttonSignIn, authorization, handleChangeSignIn, handleShowshowSignin, handleCloseshowSignIn, showSignIn}) => {
-const  {login, password} = authorization;
+const SignIn = () => {
+
+  const authorize = () => {
+    dispath({ type: 'AUTHORIZE'})
+  }
+  const dispath  =  useDispatch();
+  const showSignIn = useSelector(state => state.showSignIn.showSignIn)
+  const hide = () => {
+    dispath({ type: 'HIDE'})
+  }
+  const show = () => {
+    dispath({ type: 'SHOW'})
+  }
+ 
+  const authorization = useSelector(state => state.authorization);
+  const dataInput = (e) => {
+    dispath({type: 'DATA_INPUT', payload:{name: e.target.name, value: e.target.value}})
+  }
+  const dataClearing = () => {
+    dispath({ type: 'DATA_CLEARING'})
+  }
+
+  const errorAuthorization = () => {
+    dispath({ type: 'ERROR_AUTHORIZATION'})
+  }
+
+  const succesAuthorization = () => {
+    dispath({ type: 'SUCCESS_AUTHORIZATION'})
+  }
+
+  const  { login, password } = authorization.authorization;
+
+  const buttonSignIn = () => {
+    if (isLogin(login, password)) {
+      authorize()
+      hide()
+      succesAuthorization()
+      dataClearing()
+    } else {
+      errorAuthorization()
+    }
+  };
+
 var pStyle = {
     color: 'red',
 
   };
   const renderAuthorisationError = () => {
-      if (authorisationError) {
+      if (authorization.authorisationError) {
         return (<Form.Text className="text-muted">
         <p style={pStyle}>Неверный логин или пароль.</p>
       </Form.Text>)
@@ -17,11 +60,11 @@ var pStyle = {
 }
 return (
 <>
-    <Button variant="secondary" onClick={handleShowshowSignin}>
+    <Button variant="secondary" onClick={show}>
         Вход
     </Button>
 
-    <Modal show={showSignIn} onHide={handleCloseshowSignIn}>
+    <Modal show={showSignIn} onHide={hide}>
         <Modal.Header closeButton>
           <Modal.Title>
             Для входа в личный кабинет введите логин и пароль
@@ -32,12 +75,12 @@ return (
           <Form>
   <Form.Group className="mb-3">
     <Form.Label>Логин</Form.Label>
-    <Form.Control type="text" name='login' value={login} onChange={handleChangeSignIn} placeholder="Введите логин" />
+    <Form.Control type="text" name='login' value={login} onChange={dataInput} placeholder="Введите логин" />
   </Form.Group>
 
   <Form.Group className="mb-3" controlId="formBasicPassword">
     <Form.Label>Пароль</Form.Label>
-    <Form.Control type="password" name='password' value={password} onChange={handleChangeSignIn} placeholder="Введите пароль" />
+    <Form.Control type="password" name='password' value={password} onChange={dataInput} placeholder="Введите пароль" />
   </Form.Group>
  {renderAuthorisationError()}
 </Form>
@@ -52,3 +95,5 @@ return (
       </>
 )
 }
+
+export default SignIn;

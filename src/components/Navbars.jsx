@@ -3,8 +3,19 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
-export default ({authorisationError, buttonSignIn, handleChangeSignIn, authorization, buttonSignOut, state, user, handleCloseshowSignUp, handleShowshowSignUp, showSignUp, handleCloseshowSignIn, handleShowshowSignin, showSignIn}) => {
-    const { name, surname } = user;
+import { useDispatch, useSelector } from 'react-redux';
+
+const Navbars = ({user}) => {
+    
+  const dispath  =  useDispatch();
+  const statePage = useSelector(state => state.statePage.statePage);
+
+  const disableAuthorization = () => {
+    dispath({ type: 'DISABLE_AUTHORIZATION'})
+  }
+  
+  const { name, surname } = user;
+ 
     const renderAuthorized = () => (
         <>
         <Navbar bg="light" variant="light">
@@ -13,7 +24,7 @@ export default ({authorisationError, buttonSignIn, handleChangeSignIn, authoriza
           <div className="btn-group" role="group" aria-label="Basic example">
               <div>{name} {surname }</div>
           </div>
-          <Button variant='secondary' onClick={buttonSignOut}>Выйти</Button>
+          <Button variant='secondary' onClick={disableAuthorization}>Выйти</Button>
           </Container>
         </Navbar>
       </>
@@ -25,13 +36,14 @@ export default ({authorisationError, buttonSignIn, handleChangeSignIn, authoriza
           <Container>
           <Navbar.Brand href="#home">Список контактов</Navbar.Brand>
           <div className="btn-group" role="group" aria-label="Basic example">
-          <SignIn authorisationError={authorisationError} buttonSignIn={buttonSignIn} handleChangeSignIn={handleChangeSignIn} authorization={authorization} handleCloseshowSignIn={handleCloseshowSignIn} handleShowshowSignin={handleShowshowSignin} showSignIn={showSignIn} />
-          <SignUp handleCloseshowSignUp={handleCloseshowSignUp} handleShowshowSignUp={handleShowshowSignUp} showSignUp={showSignUp} />
+          <SignIn />
+          <SignUp />
           </div>
           </Container>
         </Navbar>
       </>
     )
 
-    return state === 'authorized' ? renderAuthorized() : renderNotAuthorized()
+    return statePage === 'authorized' ? renderAuthorized() : renderNotAuthorized()
 }
+export default Navbars;

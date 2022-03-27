@@ -9,9 +9,11 @@ const user = {
     {name: 'Андрей', surname: 'Посессор', phone: '89219969777', id: 6}],
   };
 
-  export default (login, password) => {
+  const isLogin = (login, password) => {
+
       if (login === user.login && password === user.password) {
           return true;
       }
       return false; 
   }
+  export default isLogin;
