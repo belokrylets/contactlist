@@ -1,17 +1,12 @@
 import uniqueId from "lodash/uniqueId";
 const defaultState = {
     user: {
-      id: 1,
-      name: 'Сергей',
-      surname: 'Белокрылец',
-      login: 'Sergio',
-      password: 'Sergio',
-      contacts: [
-        {name: 'Иван', surname: 'Иванов', phone: '89959969777', id: 0},
-        {name: 'Семен', surname: 'Семенов', phone: '89959969774', id: 1},
-        {name: 'Илья', surname: 'Ильин', phone: '89959961777', id: 2},
-        {name: 'Андрей', surname: 'Андреев', phone: '89219969777', id: 6}
-      ],
+      id: null,
+      name: '',
+      surname: '',
+      login: '',
+      password: '',
+      contacts: [],
     }
   }
 
@@ -19,8 +14,12 @@ const defaultState = {
     switch (action.type) {
         case 'CHANGING_CONTACTS': 
           return {...state, user: {...state.user, contacts: [...state.user.contacts, {...action.payload, id: uniqueId()}]}};
-          case 'REMOVE_CONTACTS': 
+        case 'REMOVE_CONTACTS': 
           return {...state, user: {...state.user, contacts: action.payload}}
+        case 'GET_USER':
+          return {...state, user: action.payload}
+        case 'RESET_USER':
+          return {...state, user: defaultState}
       default:
         return state;
     }

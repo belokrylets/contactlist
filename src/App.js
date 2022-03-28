@@ -4,6 +4,7 @@ import Navbars from './components/Navbars';
 import List from './components/List';
 import AddContact from './components/AddContact';
 import { useSelector } from 'react-redux';
+import Search from './components/Search';
 
 
 function App() {
@@ -28,8 +29,8 @@ function App() {
     return (
       <div className="App">
       <Navbars user={user} />
-    <div>Список контактов пользователя {user.name} {user.surname}</div>
     <AddContact />
+    <Search />
     <List />
     </div>
     )

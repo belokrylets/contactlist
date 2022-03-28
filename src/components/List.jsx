@@ -20,7 +20,7 @@ const List = () => {
     removeContacts(newList);
   };
 
-  
+  console.log(user)
     if (contacts.length === 0) {
         return <div>Список контактов пуст</div>
     }

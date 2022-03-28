@@ -1,24 +1,25 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
 const SignUp = () => {
-
   const dispath = useDispatch();
-  const showSignUp = useSelector(state => state.showSignUp.showSignUp);
-  const newUser = useSelector(state => state.newUser.newUser)
+  const showSignUp = useSelector((state) => state.showSignUp.showSignUp);
+  const newUser = useSelector((state) => state.newUser.newUser);
   const registrationDataInput = (e) => {
-    dispath({type: 'REGISTRATION_DATA_INPUT', payload:{name: e.target.name, value: e.target.value}})
-  }
- 
+    dispath({
+      type: "REGISTRATION_DATA_INPUT",
+      payload: { name: e.target.name, value: e.target.value }
+    });
+  };
+
   const hide = () => {
-    dispath({ type: 'HIDE_REGISTRATION'})
-  }
+    dispath({ type: "HIDE_REGISTRATION" });
+  };
   const show = () => {
-    dispath({ type: 'SHOW_REGISTRATION'})
-  }
- 
+    dispath({ type: "SHOW_REGISTRATION" });
+  };
 
   return (
     <>
@@ -28,31 +29,53 @@ const SignUp = () => {
 
       <Modal show={showSignUp} onHide={hide}>
         <Modal.Header closeButton>
-          <Modal.Title>
-            Для регистрации заполните все поля
-          </Modal.Title>
+          <Modal.Title>Для регистрации заполните все поля</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <>
-          <Form>
-          <Form.Group className="mb-3">
-    <Form.Label>Имя</Form.Label>
-    <Form.Control name='name' value={newUser.name} type="text" placeholder="Введите имя" onChange={registrationDataInput}/>
-  </Form.Group>
-  <Form.Group className="mb-3">
-    <Form.Label>Фамилия</Form.Label>
-    <Form.Control name='surname' value={newUser.surname} type="text" placeholder="Введите фамилию" onChange={registrationDataInput}/>
-  </Form.Group>
-  <Form.Group className="mb-3">
-    <Form.Label>Логин</Form.Label>
-    <Form.Control name='login' value={newUser.login} type="text" placeholder="Придумайте логин" onChange={registrationDataInput}/>
-  </Form.Group>
+            <Form>
+              <Form.Group className="mb-3">
+                <Form.Label>Имя</Form.Label>
+                <Form.Control
+                  name="name"
+                  value={newUser.name}
+                  type="text"
+                  placeholder="Введите имя"
+                  onChange={registrationDataInput}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Фамилия</Form.Label>
+                <Form.Control
+                  name="surname"
+                  value={newUser.surname}
+                  type="text"
+                  placeholder="Введите фамилию"
+                  onChange={registrationDataInput}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Логин</Form.Label>
+                <Form.Control
+                  name="login"
+                  value={newUser.login}
+                  type="text"
+                  placeholder="Придумайте логин"
+                  onChange={registrationDataInput}
+                />
+              </Form.Group>
 
-  <Form.Group className="mb-3" controlId="formBasicPassword">
-    <Form.Label>Пароль</Form.Label>
-    <Form.Control name='password' value={newUser.password} type="password" placeholder="Придумайте пароль" onChange={registrationDataInput}/>
-  </Form.Group>
-</Form>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Пароль</Form.Label>
+                <Form.Control
+                  name="password"
+                  value={newUser.password}
+                  type="password"
+                  placeholder="Придумайте пароль"
+                  onChange={registrationDataInput}
+                />
+              </Form.Group>
+            </Form>
           </>
         </Modal.Body>
         <Modal.Footer>
