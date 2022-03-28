@@ -43,7 +43,6 @@ const SignIn = () => {
 
   const buttonSignIn = () => {
     dispath(fetchUser(login));
-    console.log(user);
     if (isLogin(user, login, password)) {
       authorize();
       hide();
