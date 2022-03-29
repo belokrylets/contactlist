@@ -4,8 +4,10 @@ import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
 import isLogin from "../isLogin";
 import { fetchUser } from "../asyncAction/user";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const user = useSelector((state) => state.user.user);
   const authorize = () => {
     dispath({ type: "AUTHORIZE" });
@@ -36,6 +38,8 @@ const SignIn = () => {
   };
 
   const succesAuthorization = () => {
+
+  
     dispath({ type: "SUCCESS_AUTHORIZATION" });
   };
 
@@ -48,6 +52,7 @@ const SignIn = () => {
       hide();
       succesAuthorization();
       dataClearing();
+      navigate("../home", { replace: true });
     } else {
       errorAuthorization();
     }
@@ -106,7 +111,7 @@ const SignIn = () => {
           </>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={buttonSignIn}>
+          <Button disabled={!login || !password} variant="primary" onClick={buttonSignIn}>
             Войти
           </Button>
         </Modal.Footer>

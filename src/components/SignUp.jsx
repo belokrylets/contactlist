@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
 
+
 const SignUp = () => {
   const dispath = useDispatch();
   const showSignUp = useSelector((state) => state.showSignUp.showSignUp);

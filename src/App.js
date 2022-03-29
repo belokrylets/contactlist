@@ -1,48 +1,30 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbars from './components/Navbars';
-import List from './components/List';
-import AddContact from './components/AddContact';
-import { useSelector } from 'react-redux';
-import Search from './components/Search';
+import ErrorPage from './pages/ErrorPage';
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes
+} from "react-router-dom";
+import Registration from './pages/Registration';
+import HomePage from './pages/HomePage';
 
 
-function App() {
+const App = () => {
 
-  const statePage = useSelector(state => state.statePage.statePage)
-  const user = useSelector(state => state.user.user)
-
-  const renderNotAuthorized = () => {
-    return (
-      
-      <div className="App">
-      <Navbars user={user} />
-      <div>
-        <h3>Добро пожаловать в SPA приложение 'Список контактов'!</h3> 
-        <p>Для использования приложения необходимо войти в систему или зарегестрироватся</p>
-        <p>Тестовые логин/пароль: <b>Sergio/Sergio</b></p>
-      </div>    
-    </div>
-    )
-  }
-  const renderAuthorized = () => {
-    return (
-      <div className="App">
-      <Navbars user={user} />
-    <AddContact />
-    <Search />
-    <List />
-    </div>
-    )
-  }
-  switch (statePage) {
-    case 'not authorized':
-      return renderNotAuthorized();
-      case 'authorized':
-        return renderAuthorized();
-    default:
-      throw new Error(`неизвестное состояние: ${statePage}`);
-  }
+  return (
+        <Router>
+          <Navbars/>
+        <Routes>
+        <Route path="/" element={<Registration/>} />
+        <Route path="/home" element={<HomePage/>} />
+        <Route path="/404" element={<ErrorPage />} />
+        <Route path="*" element={<Navigate replace to='/404' />} />
+        </Routes>
+    </Router>
+)
 }
 
 export default App;

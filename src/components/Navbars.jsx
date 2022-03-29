@@ -4,13 +4,16 @@ import Container from 'react-bootstrap/Container';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-const Navbars = ({user}) => {
-    
+const Navbars = () => {
+  const navigate = useNavigate()
   const dispath  =  useDispatch();
+  const user = useSelector(state => state.user.user)
   const statePage = useSelector(state => state.statePage.statePage);
 
   const disableAuthorization = () => {
+    navigate("../", { replace: true });
     dispath({ type: 'DISABLE_AUTHORIZATION'})
   }
   
