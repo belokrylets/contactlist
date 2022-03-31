@@ -1,19 +1,22 @@
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import uniqueId from 'lodash/uniqueId'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useTypeSelector } from '../hooks/useTypeSelector'; 
+import { IContact } from "../types/newContact";
 
-const List = () => {
+
+const List: React.FC = () => {
   const dispath  =  useDispatch();
-  const user = useSelector(state => state.user.user)
+  const user = useTypeSelector(state => state.user.user)
 
   const {contacts} = user;
-  const removeContacts = (newList) => {
+  const removeContacts = (newList: IContact[]) => {
   
     dispath({type: 'REMOVE_CONTACTS', payload: newList})
   }
 
-  const removeContact = (id) => (e) => {
+  const removeContact = (id: number | null | undefined) => (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     const newList = contacts.filter((contact) => contact.id !== id);
     
@@ -34,11 +37,11 @@ const List = () => {
       </tr>
     </thead>
     <tbody>
-        {contacts.map(({name, surname, phone, id}) =>(
+        {contacts.map((contact) =>(
             <tr key={uniqueId()}>
-        <td>{name} {surname}</td>
-        <td>{phone}</td>
-        <td><Button variant="secondary" onClick={removeContact(id)} >Х</Button></td>
+        <td>{contact.name}</td>
+        <td>{contact.phone}</td>
+        <td><Button variant="secondary" onClick={removeContact(contact.id)} >Х</Button></td>
             </tr>
         ))}
     </tbody>

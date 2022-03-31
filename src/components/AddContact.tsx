@@ -2,18 +2,19 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useTypeSelector } from '../hooks/useTypeSelector'; 
 
-const AddContact = () => {
+const AddContact: React.FC = () => {
   const dispath = useDispatch();
 
   const changeContact = () => {
     dispath({ type: "CHANGING_CONTACTS", payload: newContact });
   };
 
-  const newContact = useSelector((state) => state.newContact.newContact);
+  const newContact = useTypeSelector((state => state.newContact.newContact))
 
-  const addContact = (e) => {
+  const addContact = (e: { preventDefault: () => void; target: { name: string; value: string; }; }) => {
     e.preventDefault();
     dispath({
       type: "ADD_CONTACT",
@@ -25,7 +26,7 @@ const AddContact = () => {
     dispath({ type: "CLEARING_CONTACT" });
   };
 
-  const submitAddContact = (e) => {
+  const submitAddContact = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     changeContact();
     clearingContact();
@@ -63,3 +64,4 @@ const AddContact = () => {
   );
 };
 export default AddContact;
+

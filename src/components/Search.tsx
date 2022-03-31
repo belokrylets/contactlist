@@ -2,16 +2,17 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import FormControl from "react-bootstrap/FormControl";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Table from "react-bootstrap/Table";
+import { useTypeSelector } from '../hooks/useTypeSelector'; 
 
-const Search = () => {
+const Search: React.FC = () => {
   const dispatch = useDispatch();
-  const { search, showModal, resultSearch } = useSelector(
+  const { search, showModal, resultSearch } = useTypeSelector(
     (state) => state.search
   );
-  const { contacts } = useSelector((state) => state.user.user);
-  const handleSearch = (e) => {
+  const { contacts } = useTypeSelector((state) => state.user.user);
+  const handleSearch = (e: { preventDefault: () => void; target: { name: string; value: string; }; }) => {
     e.preventDefault();
     dispatch({
       type: "SEARCH_CONTACT",
@@ -88,3 +89,4 @@ const Search = () => {
   );
 };
 export default Search;
+

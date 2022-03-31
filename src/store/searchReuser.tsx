@@ -1,11 +1,13 @@
-const defaultState = {
+import { ISearch, search, SearchTypes } from "../types/search";
+
+const defaultState: ISearch = {
     search: { name: "" },
     showModal: false,
     resultSearch: []
   };
-  export const searchReduser = (state = defaultState, action) => {
+  export const searchReduser = (state = defaultState, action: search): ISearch => {
     switch (action.type) {
-      case "SEARCH_CONTACT":
+      case SearchTypes.SEARCH_CONTACT:
         return {
           ...state,
           search: {
@@ -13,16 +15,16 @@ const defaultState = {
             [action.payload.name]: action.payload.value
           }
         };
-      case "CLEARING_SEARCH":
+      case SearchTypes.CLEARING_SEARCH:
         return {
           ...state,
           search: { name: "" },
           showModal: false,
           resultSearch: []
         };
-      case "SHOW_RESULT":
+      case SearchTypes.SHOW_RESULT:
         return { ...state, showModal: true };
-      case "RESULT_SEARCH":
+      case SearchTypes.RESULT_SEARCH:
         return { ...state, resultSearch: action.payload };
       default:
         return state;

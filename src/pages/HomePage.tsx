@@ -2,10 +2,11 @@ import React from 'react';
 import AddContact from '../components/AddContact';
 import Search from '../components/Search';
 import List from '../components/List';
-import { useSelector } from 'react-redux';
+import { useTypeSelector } from '../hooks/useTypeSelector';
 
-const HomePage = () => {
-    const statePage = useSelector(state => state.statePage.statePage)
+const HomePage: React.FC = () => {
+    const statePage = useTypeSelector((state => state.statePage.statePage))
+
     if (statePage === 'not authorized') {
         return null;
     }

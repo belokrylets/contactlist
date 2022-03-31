@@ -1,14 +1,15 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useTypeSelector } from '../hooks/useTypeSelector'; 
 
 
-const SignUp = () => {
+const SignUp: React.FC = () => {
   const dispath = useDispatch();
-  const showSignUp = useSelector((state) => state.showSignUp.showSignUp);
-  const newUser = useSelector((state) => state.newUser.newUser);
-  const registrationDataInput = (e) => {
+  const showSignUp = useTypeSelector((state) => state.showSignUp.showSignUp);
+  const newUser = useTypeSelector((state) => state.newUser.newUser);
+  const registrationDataInput = (e: { target: { name: string; value: string; }; }) => {
     dispath({
       type: "REGISTRATION_DATA_INPUT",
       payload: { name: e.target.name, value: e.target.value }
@@ -89,3 +90,4 @@ const SignUp = () => {
   );
 };
 export default SignUp;
+

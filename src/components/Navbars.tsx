@@ -3,14 +3,15 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useTypeSelector } from '../hooks/useTypeSelector'; 
 
-const Navbars = () => {
+const Navbars: React.FC = () => {
   const navigate = useNavigate()
   const dispath  =  useDispatch();
-  const user = useSelector(state => state.user.user)
-  const statePage = useSelector(state => state.statePage.statePage);
+  const user = useTypeSelector(state => state.user.user)
+  const statePage = useTypeSelector(state => state.statePage.statePage);
 
   const disableAuthorization = () => {
     navigate("../", { replace: true });

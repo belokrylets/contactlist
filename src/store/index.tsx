@@ -2,7 +2,7 @@ import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { statePageReduser } from './statePageReduser';
 import { showSignInReduser } from './showSignInReduser';
 import { showSignUpReduser } from './showSignUpReduser';
-import { authorizationReduser } from './authorizationstatReduser';
+import { authorizationReduser } from './authorizationReduser';
 import { userReduser } from './userReduser';
 import { newContactReduser } from './newContactReduser';
 import { registrationReduser } from './registrationReduser';
@@ -21,3 +21,4 @@ const rootReduser = combineReducers({
     search: searchReduser
   });
 export const store = createStore(rootReduser, composeWithDevTools(applyMiddleware(thunk)));
+export type RootState = ReturnType<typeof rootReduser>

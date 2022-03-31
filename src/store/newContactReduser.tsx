@@ -1,9 +1,11 @@
-const defaultState = {
+import { INewContact, newContact, NewContactTypes } from "../types/newContact";
+
+const defaultState: INewContact = {
   newContact: { name: "", phone: "" }
 };
-export const newContactReduser = (state = defaultState, action) => {
+export const newContactReduser = (state = defaultState, action: newContact): INewContact => {
   switch (action.type) {
-    case "ADD_CONTACT":
+    case NewContactTypes.ADD_CONTACT:
       return {
         ...state,
         newContact: {
@@ -11,7 +13,7 @@ export const newContactReduser = (state = defaultState, action) => {
           [action.payload.name]: action.payload.value
         }
       };
-    case "CLEARING_CONTACT":
+    case NewContactTypes.CLEARING_CONTACT:
       return { ...state, newContact: { name: "", phone: "" } };
     default:
       return state;

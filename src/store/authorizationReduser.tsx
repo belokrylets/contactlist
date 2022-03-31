@@ -1,16 +1,18 @@
-const defaultState = {
+import { authorization, AuthorizationTypes, IAuthorization } from "../types/authorization";
+
+const defaultState: IAuthorization = {
     authorization: {login: '', password: ''},
     authorisationError: false,
   }
-  export const authorizationReduser = (state = defaultState, action) => {
+  export const authorizationReduser = (state = defaultState, action: authorization): IAuthorization => {
     switch (action.type) {
-      case 'DATA_INPUT':
+      case AuthorizationTypes.DATA_INPUT:
        return {...state, authorization: {...state.authorization, [action.payload.name]: action.payload.value}};
-      case 'DATA_CLEARING':
+      case AuthorizationTypes.DATA_CLEARING:
         return {...state, authorization: { login: '', password: '' }};
-    case 'ERROR_AUTHORIZATION':
+    case AuthorizationTypes.ERROR_AUTHORIZATION:
         return {...state, authorisationError: true};
-    case 'SUCCESS_AUTHORIZATION':
+    case AuthorizationTypes.SUCCESS_AUTHORIZATION:
         return {...state, authorisationError: false};
       default:
         return state;

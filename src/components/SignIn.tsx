@@ -1,19 +1,20 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import isLogin from "../isLogin";
 import { fetchUser } from "../asyncAction/user";
 import { useNavigate } from "react-router-dom";
+import { useTypeSelector } from '../hooks/useTypeSelector'; 
 
-const SignIn = () => {
+const SignIn: React.FC = () => {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user.user);
+  const user = useTypeSelector((state) => state.user.user);
   const authorize = () => {
     dispath({ type: "AUTHORIZE" });
   };
   const dispath = useDispatch();
-  const showSignIn = useSelector((state) => state.showSignIn.showSignIn);
+  const showSignIn = useTypeSelector((state) => state.showSignIn.showSignIn);
   const hide = () => {
     dispath({ type: "HIDE" });
   };
@@ -21,8 +22,8 @@ const SignIn = () => {
     dispath({ type: "SHOW" });
   };
 
-  const authorization = useSelector((state) => state.authorization);
-  const dataInput = (e) => {
+  const authorization = useTypeSelector((state) => state.authorization);
+  const dataInput = (e: { target: { name: string; value: string; }; }) => {
     dispath({
       type: "DATA_INPUT",
       payload: { name: e.target.name, value: e.target.value }
@@ -121,3 +122,4 @@ const SignIn = () => {
 };
 
 export default SignIn;
+

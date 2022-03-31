@@ -2,7 +2,7 @@ import React from 'react';
 
 
 
-function Registration() {
+const Registration: React.FC = () => {
 
     return (
       <div className="App">
